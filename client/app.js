@@ -1,6 +1,6 @@
 // eslint-disable-next-line
 const app = {
-  server: "http://localhost:3000/",
+  server: "http://localhost:3000/classes/messages",
   init: function() {
     get()
   }
@@ -15,9 +15,10 @@ const get = () => {
   fetch(serverUrl, {
     method: 'GET'
   }).then(res => {
+
     return res.json()
   }).then(data => {
-    dataToHtml(data.results)
+    dataToHtml(data)
   })
   serverUrl = null;
 }
@@ -96,17 +97,19 @@ const onClick = () => {
 let template = document.querySelector(".template")
 
 const dataToHtml = (data) => {
-  data.map((x) => {
-    let username = x.username;
-    let text = x.text;
-    // let date = x.date.slice(0,10)+' '+x.date.slice(11,19);
-    let newTemp = document.importNode(template.content, true);
-    let nodes = newTemp.querySelectorAll('li');
-    // nodes[0].textContent = date;
-    nodes[1].textContent = username;
-    nodes[2].textContent = text;
-    read.prepend(newTemp)
-  })
+  if(data) {
+    data.map((x) => {
+      let username = x.username;
+      let text = x.text;
+      // let date = x.date.slice(0,10)+' '+x.date.slice(11,19);
+      let newTemp = document.importNode(template.content, true);
+      let nodes = newTemp.querySelectorAll('li');
+      // nodes[0].textContent = date;
+      nodes[1].textContent = username;
+      nodes[2].textContent = text;
+      read.prepend(newTemp)
+    })
+  }
 }
 
 app.init()

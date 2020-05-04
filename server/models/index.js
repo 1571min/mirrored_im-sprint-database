@@ -2,33 +2,27 @@ var db = require('../db');
 
 module.exports = {
   messages: {
-    get: function () {
-      db.connection.connect();
-      db.connection.query('SELECT * from messages', function (err, rows) {
+    get: function (req,res) {
+       db.connection.query('SELECT * from messages', function (err, rows) {
         if (!err) {
-          return rows;
-        }
-        console.log('Error while performing Query.', err);
-        return null;
-      });
-      db.connection.end();
+          res.send(rows);
+          return;
+        } return null;
+      }
+      );
     }, // a function which produces all the messages
-    post: async function (body) {
+    post: function (body) {
       let username = body.username;
       let text = body.text;
       let roomname = body.roomname;
-
-      let result = await db.connection.query(
-        `INSERT INTO messages (name , message, roomname) VALUES ('testName', "testText", "testRoom")`,
+      let query = 'INSERT INTO messages (username , text, roomname) VALUES (?, ?, ?)'
+      let params = [username, text, roomname]
+      let result = db.connection.query(
+        query, params,
         function (err, result) {
           if (!err) {
-            console.log('query no error');
             return result;
-          } else {
-            console.error(err);
-            console.log('message error');
-            return null;
-          }
+          } return null;
         }
       );
       return result;
@@ -36,38 +30,25 @@ module.exports = {
   },
 
   users: {
-    // Ditto as above.
-    get: function (id) {
-      db.connection.connect();
-      db.connection.query('SELECT * from users', function (err, rows) {
+    get: function () {
+      let result = db.connection.query('SELECT * from users', function (err, rows) {
         if (!err) {
           return rows;
-        }
-        console.log('Error while performing Query.', err);
-        return null;
+        } return null;
       });
-      db.connection.end();
+      return result;
     },
-    post: async function (body) {
+    post: function (body) {
       let username = body.username;
-      let result = await db.connection.query(
-        `INSERT INTO users (name) VALUES ('${username}')`,
+      let result = db.connection.query(
+        `INSERT INTO users (username) VALUES ('${username}')`,
         function (err, result) {
           if (!err) {
             return result;
-          }
-          console.log('users error');
-          return null;
+          } return null;
         }
       );
-
       return result;
     },
   },
 };
-
-// {
-//   username: "Valjean",
-//   text: "In mercy's name, three days is all I need.",
-//   roomname: "Hello"
-// }

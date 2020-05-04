@@ -1,5 +1,6 @@
 var express = require('express');
 var db = require('./db');
+var cors = require('cors');
 
 // Middleware
 var morgan = require('morgan');
@@ -13,12 +14,18 @@ module.exports.app = app;
 
 // Set what we are listening on.
 app.set('port', 3000);
-
+app.use(cors());
 // Logging and parsing
 app.use(morgan('dev'));
 app.use(parser.json());
 app.use((req,res,next) => {
   console.log("Serving request type " + req.method + " for url " + req.url)
+  next();
+})
+app.use((req,res,next) => {
+  if(req.method === 'OPTIONS') {
+    res.status(200).send('good')
+  }
   next();
 })
 // Set up our routes

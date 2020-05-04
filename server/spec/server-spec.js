@@ -78,8 +78,8 @@ describe('Sprint-database', () => {
 
     it('Should output all messages from the DB', function (done) {
       // Let's insert a message into the db
-      var queryString = '';
-      var queryArgs = [];
+      var queryString = 'INSERT INTO messages (username , text, roomname) VALUES (?, ?, ?)';
+      var queryArgs = ['codestates', 'Men like you can never change!', 'main'];
       // TODO - The exact query string and query args to use
       // here depend on the schema you design, so I'll leave
       // them up to you. */

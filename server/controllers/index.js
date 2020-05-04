@@ -2,19 +2,19 @@ var models = require('../models');
 
 module.exports = {
   messages: {
-    get: function (req, res) {
-      let result = models.messages.get();
+    get:  function (req, res) {
+      let result = models.messages.get(req,res);
+    // console.log('get',result)
       if (result) {
         res.status(200).send(result);
       } else {
-        res.status(404);
+        res.status(401);
       }
     }, // a function which handles a get request for all messages
-    post: async function (req, res) {
-      console.log('controllers.post');
-      let result = await models.messages.post(req.body);
-      console.log('message result');
+    post: function (req, res) {
+      let result = models.messages.post(req.body);
       if (result) {
+        console.log('post',result)
         res.status(200).send('messages posted well');
       } else {
         res.status(404);
@@ -31,9 +31,8 @@ module.exports = {
         res.status(404);
       }
     }, // a function which handles a get request for all users
-    post: async function (req, res) {
-      let result = await models.users.post(req.body);
-      console.log('user post');
+    post: function (req, res) {
+      let result = models.users.post(req.body);
       if (result) {
         res.status(200).send('posted well');
       } else {
