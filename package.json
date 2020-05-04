@@ -3,7 +3,7 @@
   "version": "1.1.0",
   "description": "Learn about databases",
   "scripts": {
-    "start": "node ./server/app.js",
+    "start": "nodemon ./server/app.js",
     "precommit": "lint-staged",
     "lint": "eslint ./",
     "test": "mocha server/spec/server-spec.js --timeout 20000 --exit"
@@ -20,7 +20,7 @@
     "body-parser": "^1.9.2",
     "express": "^4.10.1",
     "morgan": "^1.4.1",
-    "mysql": "^2.4.2",
+    "mysql": "^2.18.1",
     "request": "^2.69.0"
   },
   "devDependencies": {

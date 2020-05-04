@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>chatterbox</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="main">
+      <h1>chatterbox</h1>
+    </div>
+
+    <!-- #chats 엘리먼트의 id는 바꾸지 마세요 -->
+    <div id="chats">
+      <!-- 자유롭게 HTML을 작성하세요 -->
+      <div id="write">
+        <span id="nameTitle">Name</span> 
+        <input id="name" type="text">
+        <span id="roomTitle">Room</span>
+        <select id="room" onchange="roomFilter()">
+          <option value="all" selected>All</option>
+          <option value="New Room">New Room</option>
+          <option value="test">test</option>
+        </select>
+        <input class="newRoomname" type="text">
+        <input id="content" type="textarea" placeholder="write a message">
+        <button id="submit" onclick="onClick()">submit</button>
+      </div>
+      <div id="readBox">
+        <div id="read"></div>
+      </div>
+    </div>
+
+    <template class="template">
+      <ul>
+        <li class="date"></li>
+        <li class="userName"></li>
+        <li class="text"></li>
+      </ul>
+    </template>
+
+    <script src="app.js"></script>
+  </body>
+</html>

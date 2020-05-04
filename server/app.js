@@ -17,7 +17,10 @@ app.set('port', 3000);
 // Logging and parsing
 app.use(morgan('dev'));
 app.use(parser.json());
-
+app.use((req,res,next) => {
+  console.log("Serving request type " + req.method + " for url " + req.url)
+  next();
+})
 // Set up our routes
 app.use('/classes', router);
 

@@ -12,7 +12,7 @@ describe("Sprint-database", () => {
     beforeEach(function(done) {
       dbConnection = mysql.createConnection({
         user: "root",
-        password: process.env.DATABASE_SPRINT_PASSWORD,
+        password: '1016',
         database: "chat"
       });
       dbConnection.connect();

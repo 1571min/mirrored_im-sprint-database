@@ -1,0 +1,125 @@
+body {
+  width:100%;
+  background: #ede574;
+  text-align: center;
+  padding: 0 25px;
+  font-family: monospace;
+  background-image: radial-gradient(#fff1b9 20%, transparent 0), radial-gradient(#fff1b9 20%, transparent 0);
+  background-position: 0 0, 10px 10px;
+  background-size: 20px 20px;
+}
+
+#main,
+#chats {
+  width: 500px;
+  margin: auto;
+  text-align: left;
+  background: white;
+  padding: 30px 60px;
+  border-width: 0 1px 1px 1px;
+}
+
+#main h1 {
+  margin-top: 0;
+  font-size: 60px;
+  text-align: center;
+  margin-bottom: 20px;
+  padding: 5px;
+  color: #ff4e50;
+}
+
+#inputbox {
+  border:2px white;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border-radius: 15px;
+}
+
+img {
+  width: 50px;
+  display:block;
+  margin: 0px auto;
+}
+
+#chats {
+  margin-top: -52px;
+  border-top: 2px dotted #ddd;
+}
+
+#chats ul {
+  list-style: none;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
+  padding-bottom: 7px;
+  background-color: #fc913a;
+  color: white;
+  box-shadow: 2px 2px #4d3108;
+  border-radius: 8px;
+}
+
+#chats .username {
+  font-weight: 600;
+}
+
+#chats .text {
+  margin-top: 5px;
+}
+
+#chats .date {
+  float: right;
+}
+
+.chat:hover {
+  background-color: #ddd;
+}
+
+.newRoomname {
+  display: none;
+}
+
+.newRoomnameDisplay {
+  display: inline-block;
+}
+
+#nameTitle {
+ margin-left: 12px
+}
+
+#roomTitle {
+  margin-left: 12px
+ }
+
+#name {
+  width : 100px;
+  margin-bottom: 2px;
+  font-size: 12px;
+}
+
+#content {
+  width : 450px;
+  height: 50px;
+  margin: 10px;
+  font-size: 12px;
+}
+
+#submit {
+  margin-left: 10px;
+  font-size: 15px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  background-color: #30A9DE;
+  border: #30A9DE;
+  color: white;
+  border-radius: 10px;
+  padding:3px 7px;
+}
+
+#spanRoom {
+  margin-left: 10px;
+}
+
+#readBox {
+  margin-top: 20px;
+  padding-top: 10px;
+  border-top: dotted 0.5px lightgrey;
+}
