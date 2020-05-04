@@ -4,39 +4,66 @@ module.exports = {
   messages: {
     get: function () {
       db.connection.connect();
-      db.connection.query('SELECT * from chat', function(err, rows) {
+      db.connection.query('SELECT * from messages', function (err, rows) {
         if (!err) {
-          return rows
-        } 
+          return rows;
+        }
         console.log('Error while performing Query.', err);
         return null;
       });
       db.connection.end();
     }, // a function which produces all the messages
-    post: function (body) {
+    post: async function (body) {
       let username = body.username;
       let text = body.text;
       let roomname = body.roomname;
-      db.connection.connect(function(err) {
-        if(err) {
-          throw err;
-        } console.log("Connected!");
-        let sql = `INSERT INTO chat (name, message, roomname) VALUES (${username}, ${text}, ${roomname})`;
-        db.connection.query(sql, function(err) {
-          if(!err) {
-            return 'posted well'
-          } console.log("error");
-          return null;
-        })
-      })
-    } // a function which can be used to insert a message into the database
+
+      let result = await db.connection.query(
+        `INSERT INTO messages (name , message, roomname) VALUES ('testName', "testText", "testRoom")`,
+        function (err, result) {
+          if (!err) {
+            console.log('query no error');
+            return result;
+          } else {
+            console.error(err);
+            console.log('message error');
+            return null;
+          }
+        }
+      );
+      return result;
+    }, // a function which can be used to insert a message into the database
   },
 
   users: {
     // Ditto as above.
-    get: function () {},
-    post: function () {}
-  }
+    get: function (id) {
+      db.connection.connect();
+      db.connection.query('SELECT * from users', function (err, rows) {
+        if (!err) {
+          return rows;
+        }
+        console.log('Error while performing Query.', err);
+        return null;
+      });
+      db.connection.end();
+    },
+    post: async function (body) {
+      let username = body.username;
+      let result = await db.connection.query(
+        `INSERT INTO users (name) VALUES ('${username}')`,
+        function (err, result) {
+          if (!err) {
+            return result;
+          }
+          console.log('users error');
+          return null;
+        }
+      );
+
+      return result;
+    },
+  },
 };
 
 // {
