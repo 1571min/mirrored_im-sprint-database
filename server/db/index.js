@@ -25,6 +25,18 @@ var db = new Sequelize('chat', 'root', password, {
   host: 'localhost',
   dialect: 'mysql',
 });
+const Users = db.define('users', {
+  username: Sequelize.STRING,
+});
+
+var Messages = db.define('messages', {
+  username: Sequelize.STRING,
+  text: Sequelize.STRING,
+  roomname: Sequelize.STRING,
+});
+
+Users.sync();
+Messages.sync();
 
 module.exports = {
   db: db,
