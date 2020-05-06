@@ -1,57 +1,50 @@
-var db = require('../db');
+// var db = require('../db');
+// const { Users, Messages } = require('../db/index');
+const Sequelize = require('sequelize');
+const { db } = require('../db/index');
+
+const Users = db.define('users', {
+  username: Sequelize.STRING,
+});
+
+var Messages = db.define('messages', {
+  username: Sequelize.STRING,
+  text: Sequelize.STRING,
+  roomname: Sequelize.STRING,
+});
 
 module.exports = {
   messages: {
     get: function () {
-      return new Promise((resolve, reject) => {
-        db.connection.query('SELECT * from messages', function (err, rows) {
-          if (!err) {
-            resolve(rows);
-          } reject(err);
-        })
-      })
+      return Messages.sync().then(function () {
+        return Messages.findAll();
+      });
     }, // a function which produces all the messages
     post: async function (body) {
-      return new Promise((resolve, reject) => {
-        let username = body.username;
-        let text = body.text;
-        let roomname = body.roomname;
-        let query = 'INSERT INTO messages (username , text, roomname) VALUES (?, ?, ?)'
-        let params = [username, text, roomname]
-        db.connection.query(
-          query, params,
-          function (err, result) {
-            if (!err) {
-              resolve(result)
-            } reject(err)
-          }
-        );
-      })
+      let username = body.username;
+      let text = body.text;
+      let roomname = body.roomname;
+      return Messages.sync().then(function () {
+        return Messages.create({
+          username: username,
+          text: text,
+          roomname: roomname,
+        });
+      });
     }, // a function which can be used to insert a message into the database
   },
 
   users: {
     get: function () {
-      return new Promise((resolve, reject) => {
-        db.connection.query('SELECT * from users', function (err, rows) {
-          if (!err) {
-            resolve(rows);
-          } reject(err)
-        });
-      })
+      return Users.sync().then(function () {
+        return Users.findAll();
+      });
     },
     post: function (body) {
-      return new Promise((resolve, reject) => {
-        let username = body.username;
-        db.connection.query(
-          `INSERT INTO users (username) VALUES ('${username}')`,
-          function (err, result) {
-            if (!err) {
-              resolve(result);
-            } reject(err)
-          }
-        )
-      })
+      let username = body.username;
+      return Users.sync().then(function () {
+        return Users.create({ username: username });
+      });
     },
-  }
+  },
 };

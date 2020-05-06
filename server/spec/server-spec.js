@@ -58,7 +58,8 @@ describe('Sprint-database', () => {
               var queryArgs = [];
 
               dbConnection.query(queryString, queryArgs, function (
-                err, results
+                err,
+                results
               ) {
                 // Should have one result:
                 expect(results.length).to.equal(1);
@@ -77,8 +78,15 @@ describe('Sprint-database', () => {
 
     it('Should output all messages from the DB', function (done) {
       // Let's insert a message into the db
-      var queryString = 'INSERT INTO messages (username , text, roomname) VALUES (?, ?, ?)';
-      var queryArgs = ['codestates', 'Men like you can never change!', 'main'];
+      var queryString =
+        'INSERT INTO messages (username , text, roomname,createdAt,updatedAt) VALUES (?, ?, ?,?,?)';
+      var queryArgs = [
+        'codestates',
+        'Men like you can never change!',
+        'main',
+        new Date(),
+        new Date(),
+      ];
       // TODO - The exact query string and query args to use
       // here depend on the schema you design, so I'll leave
       // them up to you. */
