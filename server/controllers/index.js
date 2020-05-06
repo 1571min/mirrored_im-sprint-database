@@ -2,40 +2,38 @@ var models = require('../models');
 
 module.exports = {
   messages: {
-    get:  function (req, res) {
-      let result = models.messages.get(req,res);
-    // console.log('get',result)
-      if (result) {
+    get: async function (req, res) {
+      try {
+        let result = await models.messages.get(req,res);
         res.status(200).send(result);
-      } else {
-        res.status(401);
+      } catch(error) {
+        res.status(404);
       }
     }, // a function which handles a get request for all messages
-    post: function (req, res) {
-      let result = models.messages.post(req.body);
-      if (result) {
-        console.log('post',result)
+    post: async function (req, res) {
+      try {
+        await models.messages.post(req.body);
         res.status(200).send('messages posted well');
-      } else {
+      } catch(error) {
         res.status(404);
       }
     }, // a function which handles posting a message to the database
   },
 
   users: {
-    get: function (req, res) {
-      let result = models.users.get();
-      if (result) {
+    get: async function (req, res) {
+      try {
+        let result = await models.users.get();
         res.status(200).send(result);
-      } else {
+      } catch(error) {
         res.status(404);
       }
     }, // a function which handles a get request for all users
-    post: function (req, res) {
-      let result = models.users.post(req.body);
-      if (result) {
-        res.status(200).send('posted well');
-      } else {
+    post: async function (req, res) {
+      try {
+        await models.users.post(req.body);
+        res.status(200).send('users posted well');
+      } catch(error) {
         res.status(404);
       }
     }, // a function which handles posting a user to the database

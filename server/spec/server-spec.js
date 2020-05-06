@@ -58,8 +58,7 @@ describe('Sprint-database', () => {
               var queryArgs = [];
 
               dbConnection.query(queryString, queryArgs, function (
-                err,
-                results
+                err, results
               ) {
                 // Should have one result:
                 expect(results.length).to.equal(1);

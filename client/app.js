@@ -42,11 +42,12 @@ const post = async function (message) {
   //   // } else {
   //   //   serverUrl = app.server+"?roomname="+message.roomname
   //   // }
-  //   read.innerHTML = '';
+  //   
   //   console.log(res);
   //   return res;
   // });
   await get();
+  read.innerHTML = '';
   return resultJSON;
 };
 
