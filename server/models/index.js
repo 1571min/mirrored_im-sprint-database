@@ -2,7 +2,7 @@ var db = require('../db');
 
 module.exports = {
   messages: {
-    get: function (req,res) {
+    get: function () {
       return new Promise((resolve, reject) => {
         db.connection.query('SELECT * from messages', function (err, rows) {
           if (!err) {

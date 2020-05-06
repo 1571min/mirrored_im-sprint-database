@@ -4,7 +4,7 @@ module.exports = {
   messages: {
     get: async function (req, res) {
       try {
-        let result = await models.messages.get(req,res);
+        let result = await models.messages.get();
         res.status(200).send(result);
       } catch(error) {
         res.status(404);
