@@ -110,5 +110,65 @@ describe('Sprint-database', () => {
         });
       });
     });
+
+    it("should get messages from a user through user's id", function (done) {
+      request(
+        {
+          method: 'POST',
+          uri: 'http://127.0.0.1:3000/classes/users',
+          json: { username: 'Kim' },
+        },
+        function () {
+          // Post a message to the node chat server:
+          request(
+            {
+              method: 'POST',
+              uri: 'http://127.0.0.1:3000/classes/messages',
+              json: {
+                username: 'Kim',
+                text: "AA",
+                roomname: 'Hello',
+              },
+            },
+            function () {
+              request(
+                {
+                  method: 'POST',
+                  uri: 'http://127.0.0.1:3000/classes/messages',
+                  json: {
+                    username: 'Kim',
+                    text: "BB",
+                    roomname: 'Hello',
+                  },
+                },
+                function () {
+                  request({
+                    method: 'GET',
+                    uri: 'http://127.0.0.1:3000/classes/users/Kim'
+                  }, function() {
+                    var queryString = 'SELECT * FROM messages WHERE username=?';
+                    var queryArgs = ['Kim'];
+  
+                    dbConnection.query(queryString, queryArgs, function (
+                      err,
+                      results
+                    ) {
+                      // Should have one result:
+                      expect(results.length).to.equal(2);
+  
+                      expect(results[1].text).to.equal(
+                        "BB"
+                      );
+  
+                      done();
+                    });
+                  })
+                }
+              )
+            }
+          );
+        }
+      );
+    });
   });
 });

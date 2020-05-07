@@ -39,7 +39,7 @@ Users.sync();
 Messages.sync();
 
 module.exports = {
-  db: db,
+  db,
 };
 
 // 데이터베이스 연결을 만들고, 연결 객체를 export 하세요.

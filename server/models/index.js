@@ -15,10 +15,24 @@ var Messages = db.define('messages', {
 
 module.exports = {
   messages: {
-    get: function () {
-      return Messages.sync().then(function () {
-        return Messages.findAll();
-      });
+    get: function(username) {
+      if(!username) {
+        return Messages.sync().then(function () {
+          return Messages.findAll();
+        });
+      } 
+      return Users.sync().then(function() {
+        return Users.findAll({
+          include: [
+            {
+              model: Messages,
+              attributes: ['username'],
+              WHERE: {username}
+            }
+          ]
+        })
+      })
+      
     }, // a function which produces all the messages
     post: async function (body) {
       let username = body.username;
@@ -26,9 +40,9 @@ module.exports = {
       let roomname = body.roomname;
       return Messages.sync().then(function () {
         return Messages.create({
-          username: username,
-          text: text,
-          roomname: roomname,
+          username,
+          text,
+          roomname,
         });
       });
     }, // a function which can be used to insert a message into the database
@@ -43,7 +57,7 @@ module.exports = {
     post: function (body) {
       let username = body.username;
       return Users.sync().then(function () {
-        return Users.create({ username: username });
+        return Users.create({ username });
       });
     },
   },

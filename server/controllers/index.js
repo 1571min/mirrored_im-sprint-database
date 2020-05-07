@@ -38,4 +38,15 @@ module.exports = {
       }
     }, // a function which handles posting a user to the database
   },
+
+  usersmessage: {
+    get: async function (req, res) {
+      try {
+        let result = await models.users.get(req.params.username);
+        res.status(200).send(result);
+      } catch(error) {
+        res.status(404);
+      }
+    }, // a function which handles a get request for all users
+  },
 };
